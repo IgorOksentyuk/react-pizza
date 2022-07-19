@@ -7,9 +7,17 @@ import PizzaBlock from './Components/PizzaBlock';
 
 import './scss/app.scss';
 
-import pizzas from './assets/db.json';
-
 function App() {
+  const [pizzas, setPizzas] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch('https://62987872f2decf5bb7434cfd.mockapi.io/pizza')
+      .then((res) => {
+        return res.json();
+      })
+      .then((arr) => setPizzas(arr));
+  }, []);
+
   return (
     <div className="App">
       <div className="wrapper">
