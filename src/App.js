@@ -7,6 +7,8 @@ import PizzaBlock from './Components/PizzaBlock';
 
 import './scss/app.scss';
 
+import pizzas from './assets/db.json';
+
 function App() {
   return (
     <div className="App">
@@ -18,12 +20,18 @@ function App() {
               <Categories />
               <Sort />
             </div>
-            <h2 className="content__title">Все пиццы</h2>
+            <h2 className="content__title">Всі піцци</h2>
             <div className="content__items">
-              <PizzaBlock title="Мексиканська" price="400" />
-              <PizzaBlock title="Чізбургер" price="300" />
-              <PizzaBlock title="Формаджі" price="200" />
-              <PizzaBlock title="Чотири сири" price="100" />
+              {pizzas.map((item) => (
+                <PizzaBlock
+                  title={item.title}
+                  price={item.price}
+                  image={item.imageUrl}
+                  sizes={item.sizes}
+                  types={item.types}
+                  // {...item}
+                />
+              ))}
             </div>
           </div>
         </div>
