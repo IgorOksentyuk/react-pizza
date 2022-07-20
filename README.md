@@ -12,7 +12,7 @@ _Made with plain:_
 
 - HTML;
 - SCSS;
-- React (useState, useEffect);
+- React: (useState, useEffect, Skeleton);
 - and many others, the application is actively being improved :)
 
 ---
