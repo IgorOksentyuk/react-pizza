@@ -14,9 +14,16 @@ _Made with plain:_
 - SCSS;
 - React (useState, useEffect);
 - Skeleton (React Content Loader);
+- React Router;
 - and many others, the application is actively being improved :)
 
 ---
 
 _How to run:_
-Write **npm start** in your terminal.
+You need to install:
+
+- npm install sass;
+- npm install react-content-loader;
+- npm install react-router-dom@6;
+
+And write **npm start** in your terminal.
