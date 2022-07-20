@@ -13,7 +13,7 @@ _Made with plain:_
 - HTML;
 - SCSS;
 - React (useState, useEffect);
-- Skeleton (React Content Loader);
+- React Content Loader (Skeleton);
 - React Router;
 - and many others, the application is actively being improved :)
 
