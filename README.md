@@ -20,6 +20,7 @@ _Made with plain:_
 ---
 
 _How to run:_
+
 You need to install:
 
 - npm install sass;
