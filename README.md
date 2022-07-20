@@ -12,7 +12,8 @@ _Made with plain:_
 
 - HTML;
 - SCSS;
-- React: (useState, useEffect, Skeleton);
+- React (useState, useEffect);
+- Skeleton (React Content Loader);
 - and many others, the application is actively being improved :)
 
 ---
