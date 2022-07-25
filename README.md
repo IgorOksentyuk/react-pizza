@@ -15,6 +15,7 @@ _Made with plain:_
 - React (useState, useEffect);
 - React Content Loader (Skeleton);
 - React Router;
+- MockAPI;
 - and many others, the application is actively being improved :)
 
 ---
