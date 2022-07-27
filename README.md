@@ -1,6 +1,7 @@
 **Application in which you can:**
 
 - buy different pizzas;
+- find selected pizza in the search bar;
 - sort pizzas by popularity, price and alphabetically;
 - filter pizzas by a large number of criteria;
 - change parameters such as size and type of dough;
