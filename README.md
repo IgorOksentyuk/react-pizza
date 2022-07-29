@@ -5,6 +5,7 @@
 - sort pizzas by popularity, price and alphabetically;
 - filter pizzas by a large number of criteria;
 - change parameters such as size and type of dough;
+- move through the pages to choose pizza;
 - add your chosen pizza to the cart;
 
 ---
@@ -28,5 +29,6 @@ You need to install:
 - npm install sass;
 - npm install react-content-loader;
 - npm install react-router-dom@6;
+- npm install react-paginate;
 
 And write **npm start** in your terminal.
