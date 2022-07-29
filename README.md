@@ -5,7 +5,7 @@
 - sort pizzas by popularity, price and alphabetically;
 - filter pizzas by a large number of criteria;
 - change parameters such as size and type of dough;
-- move through the pages to choose pizza;
+- move through the pages to choose your pizza;
 - add your chosen pizza to the cart;
 
 ---
