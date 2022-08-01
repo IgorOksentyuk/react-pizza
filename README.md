@@ -14,7 +14,7 @@ _Made with plain:_
 
 - HTML;
 - SCSS;
-- React (useState, useEffect);
+- React (useState, useEffect, useContext);
 - React Content Loader (Skeleton);
 - React Router;
 - MockAPI;
