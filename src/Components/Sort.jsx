@@ -1,19 +1,25 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Sort = ({ value, onClickSort }) => {
+import { setSort } from '../redux/slices/filterSlice';
+
+const sortList = [
+  { name: 'популярністю (DESC)', sortProperty: 'rating' },
+  { name: 'популярністю (ASC)', sortProperty: '-rating' },
+  { name: 'ціною (DESC)', sortProperty: 'price' },
+  { name: 'ціною (ASC)', sortProperty: '-price' },
+  { name: 'алфавітом (DESC)', sortProperty: 'title' },
+  { name: 'алфавітом (ASC)', sortProperty: '-title' },
+];
+
+const Sort = () => {
+  const dispatch = useDispatch();
+  const sort = useSelector((state) => state.filter.sort);
+
   const [visiblePopup, setVisiblePopup] = React.useState(false);
 
-  const sortList = [
-    { name: 'популярністю (DESC)', sortProperty: 'rating' },
-    { name: 'популярністю (ASC)', sortProperty: '-rating' },
-    { name: 'ціною (DESC)', sortProperty: 'price' },
-    { name: 'ціною (ASC)', sortProperty: '-price' },
-    { name: 'алфавітом (DESC)', sortProperty: 'title' },
-    { name: 'алфавітом (ASC)', sortProperty: '-title' },
-  ];
-
-  const selectSort = (index) => {
-    onClickSort(index);
+  const selectSort = (obj) => {
+    dispatch(setSort(obj));
     setVisiblePopup(false);
   };
 
@@ -32,7 +38,7 @@ const Sort = ({ value, onClickSort }) => {
           />
         </svg>
         <b>Сортування за:</b>
-        <span onClick={() => setVisiblePopup(!visiblePopup)}>{value.name}</span>
+        <span onClick={() => setVisiblePopup(!visiblePopup)}>{sort.name}</span>
       </div>
       {visiblePopup && (
         <div className="sort__popup">
@@ -40,7 +46,7 @@ const Sort = ({ value, onClickSort }) => {
             {sortList.map((obj, i) => (
               <li
                 onClick={() => selectSort(obj)}
-                className={value.sortProperty === obj.sortProperty ? 'active' : ''}>
+                className={sort.sortProperty === obj.sortProperty ? 'active' : ''}>
                 {obj.name}
               </li>
             ))}
