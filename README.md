@@ -21,6 +21,7 @@ _Made with plain:_
 - Redux Toolkit;
 - Axios;
 - Lodash (Debounce);
+- QS;
 - and many others, the application is actively being improved.
 
 ---
