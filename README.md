@@ -14,12 +14,13 @@ _Made with plain:_
 
 - HTML;
 - SCSS;
-- React (useState, useEffect, useContext);
+- React (useState, useEffect, useContext, useRef, useCallback);
 - React Content Loader (Skeleton);
 - React Router;
 - MockAPI;
 - Redux Toolkit;
 - Axios;
+- Lodash (Debounce);
 - and many others, the application is actively being improved.
 
 ---
