@@ -15,6 +15,7 @@ export const sortList = [
 const Sort = () => {
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
+  const sortRef = React.useRef();
 
   const [visiblePopup, setVisiblePopup] = React.useState(false);
 
@@ -23,8 +24,20 @@ const Sort = () => {
     setVisiblePopup(false);
   };
 
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.path.includes(sortRef.current)) {
+        setVisiblePopup(false);
+      }
+    };
+
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => document.body.removeEventListener('click', handleClickOutside);
+  }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
@@ -45,6 +58,7 @@ const Sort = () => {
           <ul>
             {sortList.map((obj, i) => (
               <li
+                key={i}
                 onClick={() => selectSort(obj)}
                 className={sort.sortProperty === obj.sortProperty ? 'active' : ''}>
                 {obj.name}
