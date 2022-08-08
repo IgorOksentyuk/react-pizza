@@ -19,7 +19,7 @@ const Cart = () => {
     }
   };
 
-  if (!totalPrice) {
+  if (!totalCount) {
     return <CartEmpty />;
   }
 
