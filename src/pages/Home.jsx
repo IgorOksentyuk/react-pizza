@@ -5,6 +5,8 @@ import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+import { setItems } from '../redux/slices/pizzaSlice';
+
 import Categories from '../Components/Categories';
 import Sort from '../Components/Sort';
 import PizzaBlock from '../Components/PizzaBlock';
@@ -20,10 +22,8 @@ const Home = () => {
   const isMounted = React.useRef(false);
 
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
-
+  const pizzas = useSelector((state) => state.pizza.items);
   const { searchValue } = React.useContext(SearchContext);
-
-  const [pizzas, setPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
   const onClickCategory = (id) => {
@@ -46,8 +46,8 @@ const Home = () => {
         .get(
           `https://62987872f2decf5bb7434cfd.mockapi.io/pizza?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
         )
-        .then((res) => {
-          setPizzas(res.data);
+        .then(({ data }) => {
+          dispatch(setItems(data));
           setIsLoading(false);
         });
     } catch (error) {
