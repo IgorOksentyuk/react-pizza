@@ -34,19 +34,28 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchPizzas = () => {
+  const fetchPizzas = async () => {
     setIsLoading(true);
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const sortBy = sort.sortProperty.replace('-', '');
     const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    axios
-      .get(
-        `https://62987872f2decf5bb7434cfd.mockapi.io/pizza?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
-      )
-      .then((res) => setPizzas(res.data));
-    setIsLoading(false);
+    try {
+      const res = await axios
+        .get(
+          `https://62987872f2decf5bb7434cfd.mockapi.io/pizza?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
+        )
+        .then((res) => {
+          setPizzas(res.data);
+          setIsLoading(false);
+        });
+    } catch (error) {
+      alert('Помилка при отриманні піцц..');
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   //Якщо змінили параметри і був перший рендер то..
