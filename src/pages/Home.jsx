@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
+
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
-import { setItems } from '../redux/slices/pizzaSlice';
+import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
 import Categories from '../Components/Categories';
 import Sort from '../Components/Sort';
@@ -22,9 +22,8 @@ const Home = () => {
   const isMounted = React.useRef(false);
 
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
-  const pizzas = useSelector((state) => state.pizza.items);
+  const { items, status } = useSelector((state) => state.pizza);
   const { searchValue } = React.useContext(SearchContext);
-  const [isLoading, setIsLoading] = React.useState(true);
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -34,28 +33,21 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchPizzas = async () => {
-    setIsLoading(true);
+  const getPizzas = async () => {
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const sortBy = sort.sortProperty.replace('-', '');
     const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    try {
-      const res = await axios
-        .get(
-          `https://62987872f2decf5bb7434cfd.mockapi.io/pizza?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
-        )
-        .then(({ data }) => {
-          dispatch(setItems(data));
-          setIsLoading(false);
-        });
-    } catch (error) {
-      alert('Помилка при отриманні піцц..');
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
+    dispatch(
+      fetchPizzas({
+        category,
+        sortBy,
+        order,
+        search,
+        currentPage,
+      }),
+    );
   };
 
   //Якщо змінили параметри і був перший рендер то..
@@ -94,7 +86,7 @@ const Home = () => {
     window.scrollTo(0, 0);
 
     if (!isSearch.current) {
-      fetchPizzas();
+      getPizzas();
     }
 
     isSearch.current = false;
@@ -102,7 +94,7 @@ const Home = () => {
 
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
-  const items = pizzas
+  const pizzas = items
     // .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
     //пошук по статичному масиву без бекенду
     .map((item) => <PizzaBlock key={item.id} {...item} />);
@@ -114,7 +106,15 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Всі піцци</h2>
-      <div className="content__items">{isLoading ? skeletons : items}</div>
+      {status === 'error' ? (
+        <div className="content__error-info">
+          <h2>Виникла помилка 😕</h2>
+          <p>На жаль не вдалося завантажити піцци, спробуйте пізніше.</p>
+        </div>
+      ) : (
+        <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>
+      )}
+
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
