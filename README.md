@@ -16,9 +16,9 @@ _Made with plain:_
 - SCSS;
 - React (useState, useEffect, useContext, useRef, useCallback);
 - React Content Loader (Skeleton);
-- React Router;
+- React Router (useLocation, useParams);
 - MockAPI;
-- Redux Toolkit;
+- Redux Toolkit (createSlice, useSelector, useDispatch, createAsyncThunk);
 - Axios;
 - Lodash (Debounce);
 - QS;
