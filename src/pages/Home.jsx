@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { fetchPizzas } from '../redux/slices/pizzaSlice';
@@ -12,7 +12,6 @@ import Sort from '../Components/Sort';
 import PizzaBlock from '../Components/PizzaBlock';
 import Skeleton from '../Components/PizzaBlock/Skeleton';
 import Pagination from '../Components/Pagination';
-import { SearchContext } from '../App';
 import { sortList } from '../Components/Sort';
 
 const Home = () => {
@@ -21,9 +20,8 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
+  const { categoryId, sort, currentPage, searchValue } = useSelector((state) => state.filter);
   const { items, status } = useSelector((state) => state.pizza);
-  const { searchValue } = React.useContext(SearchContext);
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -97,7 +95,11 @@ const Home = () => {
   const pizzas = items
     // .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
     //пошук по статичному масиву без бекенду
-    .map((item) => <PizzaBlock key={item.id} {...item} />);
+    .map((item) => (
+      <Link key={item.id} to={`/pizza/${item.id}`}>
+        <PizzaBlock {...item} />
+      </Link>
+    ));
 
   return (
     <div className="container">
@@ -114,7 +116,6 @@ const Home = () => {
       ) : (
         <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>
       )}
-
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
