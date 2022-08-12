@@ -95,11 +95,7 @@ const Home = () => {
   const pizzas = items
     // .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
     //пошук по статичному масиву без бекенду
-    .map((item) => (
-      <Link key={item.id} to={`/pizza/${item.id}`}>
-        <PizzaBlock {...item} />
-      </Link>
-    ));
+    .map((item) => <PizzaBlock key={item.id} {...item} />);
 
   return (
     <div className="container">
