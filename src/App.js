@@ -5,7 +5,7 @@ import Header from './Components/Header';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Cart from './pages/Cart';
-import FullPizza from './pages/FullPizza';
+import FullPizza from './Components/FullPizza/';
 
 import './scss/app.scss';
 
