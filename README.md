@@ -22,6 +22,7 @@ _Made with plain:_
 - Axios;
 - Lodash (Debounce);
 - QS;
+- Typescript;
 - and many others, the application is actively being improved.
 
 ---
