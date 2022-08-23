@@ -31,10 +31,13 @@ const filterSlice = createSlice({
       state.sort = action.payload.sort;
       state.categoryId = Number(action.payload.categoryId);
     },
+    selectSort(state) {
+      state = state.filter.sort;
+    },
   },
 });
 
-export const { setCategoryId, setSort, setCurrentPage, setFilters, setSearchValue } =
+export const { setCategoryId, setSort, setCurrentPage, setFilters, setSearchValue, selectSort } =
   filterSlice.actions;
 
 export default filterSlice.reducer;
