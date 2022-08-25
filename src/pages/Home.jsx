@@ -8,11 +8,11 @@ import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filte
 import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
 import Categories from '../Components/Categories';
-import Sort from '../Components/Sort';
+import Sort from '../Components/Sort/Sort';
 import PizzaBlock from '../Components/PizzaBlock';
 import Skeleton from '../Components/PizzaBlock/Skeleton';
 import Pagination from '../Components/Pagination';
-import { sortList } from '../Components/Sort';
+import { sortList } from '../Components/Sort/Sort';
 
 const Home = () => {
   const navigate = useNavigate();
