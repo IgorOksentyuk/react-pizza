@@ -4,8 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import qs from 'qs';
 import { useNavigate, Link } from 'react-router-dom';
 
-import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
-import { fetchPizzas } from '../redux/slices/pizzaSlice';
+import {
+  setCategoryId,
+  setCurrentPage,
+  setFilters,
+  selectFilter,
+} from '../redux/slices/filterSlice';
+import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 
 import Categories from '../Components/Categories';
 import Sort from '../Components/Sort/Sort';
@@ -14,21 +19,21 @@ import Skeleton from '../Components/PizzaBlock/Skeleton';
 import Pagination from '../Components/Pagination';
 import { sortList } from '../Components/Sort/Sort';
 
-const Home = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const { categoryId, sort, currentPage, searchValue } = useSelector((state) => state.filter);
-  const { items, status } = useSelector((state) => state.pizza);
+  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
+  const { items, status } = useSelector(selectPizzaData);
 
-  const onClickCategory = (id) => {
-    dispatch(setCategoryId(id));
+  const onClickCategory = (idx: number) => {
+    dispatch(setCategoryId(idx));
   };
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (n: number) => {
+    dispatch(setCurrentPage(n));
   };
 
   const getPizzas = async () => {
@@ -38,6 +43,7 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : '';
 
     dispatch(
+      //@ts-ignore
       fetchPizzas({
         category,
         sortBy,
@@ -95,7 +101,7 @@ const Home = () => {
   const pizzas = items
     // .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
     //пошук по статичному масиву без бекенду
-    .map((item) => <PizzaBlock key={item.id} {...item} />);
+    .map((item: any) => <PizzaBlock key={item.id} {...item} />);
 
   return (
     <div className="container">
